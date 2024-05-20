@@ -39,7 +39,7 @@ torch.manual_seed(args.seed)
 np.random.seed(args.seed)
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
+#os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
 use_gpu = torch.cuda.is_available()
 if use_gpu:
     device = torch.device("cuda")
