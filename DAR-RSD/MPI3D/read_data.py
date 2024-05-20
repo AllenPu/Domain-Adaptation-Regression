@@ -181,7 +181,7 @@ class ImageList(object):
         self.target_transform = target_transform
         self.loader = loader
         self.npz = np.load(npz_path)
-        print(f' shape is {self.npz.shape}')
+        print(f' shape is {self.npz['images'].shape}')
         #print(f' attrbutes are {self.npz.files}')
 
     def __getitem__(self, index):
