@@ -10,6 +10,7 @@ import argparse
 torch.set_num_threads(1)
 import math
 from read_data import ImageList
+from tqdm import tqdm
 
 
 torch.backends.cudnn.deterministic = True
@@ -188,7 +189,7 @@ for param_group in optimizer.param_groups:
     param_lr.append(param_group["lr"])
 test_interval = 500
 num_iter = 10002
-for iter_num in range(1, num_iter + 1):
+for iter_num in tqdm(range(1, num_iter + 1)):
     Model_R.train(True)
     optimizer = inv_lr_scheduler(param_lr, optimizer, iter_num, init_lr=args.lr, gamma=args.gamma, power=0.75,
                                  weight_decay=0.0005)
