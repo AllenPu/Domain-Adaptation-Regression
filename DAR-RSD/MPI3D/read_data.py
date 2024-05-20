@@ -197,7 +197,7 @@ class ImageList(object):
         img = self.img[image_index]
         #if img.shape != (64,64,3):
         #    print(f' index is {index} key is {image_index} shape of the  numpy  {img.shape}')
-        img = Image.fromarray(img)
+        img = Image.fromarray(np.uint8(img)).convert('RGB')
         #img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
