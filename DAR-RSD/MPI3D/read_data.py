@@ -181,6 +181,7 @@ class ImageList(object):
         self.target_transform = target_transform
         self.loader = loader
         self.npz = np.load(npz_path)
+        print(f' attrbutes are {self.npz.file}')
 
     def __getitem__(self, index):
         """
