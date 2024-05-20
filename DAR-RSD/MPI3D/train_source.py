@@ -94,6 +94,8 @@ elif args.tgt =='t':
     npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
 
 
+store_name = f'source_{args.src}_target_{args.tgt}'
+
 dsets = {"train": ImageList(open(source_path).readlines(), npz_path=npz_path_source, transform=data_transforms["train"]),
          "val": ImageList(open(target_path).readlines(), npz_path=npz_path_target, transform=data_transforms["val"]),
          "test": ImageList(open(target_path_t).readlines(), npz_path=npz_path_test, transform=data_transforms["test"])}
@@ -231,4 +233,5 @@ for iter_num in tqdm(range(1, num_iter + 1)):
     if (iter_num % test_interval) == 0:
         Model_R.eval()
         Regression_test(dset_loaders, Model_R.predict_layer)
+torch.save(f'{store_name}'.pth, Model_R)
 
