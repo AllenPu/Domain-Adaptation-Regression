@@ -198,8 +198,8 @@ for iter_num in tqdm(range(1, num_iter + 1)):
     optimizer.zero_grad()
     if iter_num % len_source == 0:
         iter_source = iter(dset_loaders["train"])
-    if iter_num % len_target == 0:
-        iter_target = iter(dset_loaders["val"])
+    #if iter_num % len_target == 0:
+    #    iter_target = iter(dset_loaders["val"])
     data_source = next(iter_source)#.__next__()
     #data_target = iter_target.next()
     inputs_source, labels_source = data_source
