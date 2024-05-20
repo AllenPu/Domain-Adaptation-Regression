@@ -101,10 +101,10 @@ dsets = {"train": ImageList(open(source_path).readlines(), npz_path=npz_path_sou
          "test": ImageList(open(target_path_t).readlines(), npz_path=npz_path_test, transform=data_transforms["test"])}
 
 dset_loaders = {x: torch.utils.data.DataLoader(dsets[x], batch_size=batch_size[x],
-                                               shuffle=True, num_workers=0)
+                                               shuffle=True, num_workers=16)
                 for x in ['train', 'val']}
 dset_loaders["test"] = torch.utils.data.DataLoader(dsets["test"], batch_size=batch_size["test"],
-                                                   shuffle=False, num_workers=64)
+                                                   shuffle=False, num_workers=16)
 
 dset_sizes = {x: len(dsets[x]) for x in ['train', 'val','test']}
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
