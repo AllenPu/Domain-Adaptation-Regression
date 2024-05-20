@@ -196,7 +196,8 @@ class ImageList(object):
         #print(f' key is {image_index}')
         img = self.img[image_index]
         #
-        img.transpose(1,2,0)
+        if img.shape != (64,64,3):
+            img = img.transpose(1,2,0)
         #if img.shape != (64,64,3):
         #    print(f' index is {index} key is {image_index} shape of the  numpy  {img.shape}')
         img = Image.fromarray(np.uint8(img))
