@@ -114,7 +114,7 @@ def Regression_test(loader, model):
     MAE = [0, 0, 0]
     number = 0
     with torch.no_grad():
-        for (imgs, labels) in loader['test']:
+        for idx, (imgs, labels) in enumerate(loader['test']):
             imgs = imgs.to(device)
             labels = labels.to(device)
             labels1 = labels[:, 0]
