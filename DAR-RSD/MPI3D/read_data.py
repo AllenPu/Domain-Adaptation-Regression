@@ -1,5 +1,5 @@
 
-
+import re
 import torch
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -131,12 +131,14 @@ def accimage_loader(path):
         return pil_loader(path)
 
 
-def default_loader(path):
+def default_loader(path, npz_file=None):
     # from torchvision import get_image_backend
     # if get_image_backend() == 'accimage':
     #    return accimage_loader(path)
     # else:
     return pil_loader(path)
+
+
 
 def default_loader1(path):
     # from torchvision import get_image_backend
@@ -166,7 +168,7 @@ class ImageList(object):
         imgs (list): List of (image path, class_index) tuples
     """
 
-    def __init__(self, image_list, labels=None, transform=None, target_transform=None,
+    def __init__(self, image_list, labels=None, npz_path = None, transform=None, target_transform=None,
                  loader=default_loader):
         imgs = make_dataset(image_list, labels)
         if len(imgs) == 0:
@@ -178,6 +180,7 @@ class ImageList(object):
         self.transform = transform
         self.target_transform = target_transform
         self.loader = loader
+        self.npz = np.load(npz_path)
 
     def __getitem__(self, index):
         """
@@ -187,7 +190,9 @@ class ImageList(object):
             tuple: (image, target) where target is class_index of the target class.
         """
         path, target = self.imgs[index]
-        img = self.loader(path)
+        image_index = int(''.join(re.findall('[0-9]', path)))
+        img = self.npz[image_index]
+        #img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
         if self.target_transform is not None:

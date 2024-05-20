@@ -88,7 +88,7 @@ elif args.tgt =='t':
 dsets = {"train": ImageList(open(source_path).readlines(), transform=data_transforms["train"]),
          "val": ImageList(open(target_path).readlines(),transform=data_transforms["val"]),
          "test": ImageList(open(target_path_t).readlines(),transform=data_transforms["test"])}
-print(dsets)
+
 dset_loaders = {x: torch.utils.data.DataLoader(dsets[x], batch_size=batch_size[x],
                                                shuffle=True, num_workers=0)
                 for x in ['train', 'val']}
