@@ -191,7 +191,7 @@ class ImageList(object):
         """
         path, target = self.imgs[index]
         image_index = int(''.join(re.findall('[0-9]', path)))
-        img = self.npz[image_index]
+        img = self.npz['images'][image_index]
         #img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
