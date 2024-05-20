@@ -193,10 +193,10 @@ class ImageList(object):
         """
         path, target = self.imgs[index]
         image_index = int(''.join(re.findall('[0-9]', path)))
-        print(f' key is {image_index}')
+        #print(f' key is {image_index}')
         img = self.img[image_index]
         if img.shape != (64,64,3):
-            print(f' index is {index} shape of the  numpy  {img.shape}')
+            print(f' index is {index} key is {image_index} shape of the  numpy  {img.shape}')
         img = Image.fromarray(img)
         #img = self.loader(path)
         if self.transform is not None:
