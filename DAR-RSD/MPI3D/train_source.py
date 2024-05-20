@@ -198,7 +198,7 @@ for iter_num in range(1, num_iter + 1):
     if iter_num % len_target == 0:
         iter_target = iter(dset_loaders["val"])
     data_source = iter_source.next()
-    data_target = iter_target.next()
+    #data_target = iter_target.next()
     inputs_source, labels_source = data_source
     labels1 = labels_source[:,0]
     labels2 = labels_source[:,1]
@@ -206,21 +206,21 @@ for iter_num in range(1, num_iter + 1):
     labels2 = labels2.unsqueeze(1)
     labels_source = torch.cat((labels1,labels2),dim=1)
     labels_source = labels_source.float()/39
-    inputs_target, labels_target = data_target
-    inputs = torch.cat((inputs_source, inputs_target), dim=0)
-    inputs = inputs.to(device)
+    #inputs_target, labels_target = data_target
+    #inputs = torch.cat((inputs_source, inputs_target), dim=0)
+    #inputs = inputs.to(device)
     labels = labels_source.to(device)
-    inputs_s = inputs.narrow(0, 0, batch_size["train"])
-    inputs_t = inputs.narrow(0, batch_size["train"], batch_size["train"])
+    inputs_s = inputs_source.narrow(0, 0, batch_size["train"]).to(device)
+    #inputs_t = inputs.narrow(0, batch_size["train"], batch_size["train"])
     outC_s, feature_s = Model_R(inputs_s)
-    outC_t, feature_t = Model_R(inputs_t)
+    #outC_t, feature_t = Model_R(inputs_t)
     classifier_loss = criterion["regressor"](outC_s, labels)
-    rsd_loss = RSD(feature_s,feature_t)
-    total_loss = classifier_loss + args.tradeoff*rsd_loss
+    #rsd_loss = RSD(feature_s,feature_t)
+    total_loss = classifier_loss #+ args.tradeoff*rsd_loss
     total_loss.backward()
     optimizer.step()
     train_cross_loss += classifier_loss.item()
-    train_rsd_loss += rsd_loss.item()
+    #train_rsd_loss += rsd_loss.item()
     train_total_loss += total_loss.item()
     if iter_num % 500 == 0:
         print("Iter {:05d}, Average Cross Entropy Loss: {:.4f}; Average RSD Loss: {:.4f};  Average Training Loss: {:.4f}".format(
