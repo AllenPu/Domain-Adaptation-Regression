@@ -200,7 +200,7 @@ for iter_num in tqdm(range(1, num_iter + 1)):
         iter_source = iter(dset_loaders["train"])
     if iter_num % len_target == 0:
         iter_target = iter(dset_loaders["val"])
-    data_source = iter_source.next()
+    data_source = iter_source.__next__()
     #data_target = iter_target.next()
     inputs_source, labels_source = data_source
     labels1 = labels_source[:,0]
