@@ -193,6 +193,7 @@ class ImageList(object):
         """
         path, target = self.imgs[index]
         image_index = int(''.join(re.findall('[0-9]', path)))
+        print(f' key is {image_index}')
         img = self.img[image_index]
         if img.shape != (64,64,3):
             print(f' index is {index} shape of the  numpy  {img.shape}')
