@@ -32,12 +32,6 @@ parser.add_argument('--tradeoff', type=float, default=0.001,
                         help='tradeoff of RSD')
 parser.add_argument('--tradeoff2', type=float, default=0.01,
                         help='tradeoff of BMP')
-parser.add_argument('--npz_path_source', type=str,
-                        help='path to the source npz files')
-parser.add_argument('--npz_path_target', type=str,
-                        help='path to the target npz files')
-parser.add_argument('--npz_path_test', type=str,
-                        help='path to the test npz files')
 args = parser.parse_args()
 
 torch.manual_seed(args.seed)
