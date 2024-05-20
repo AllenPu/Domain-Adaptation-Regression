@@ -180,8 +180,8 @@ class ImageList(object):
         self.transform = transform
         self.target_transform = target_transform
         self.loader = loader
-        self.npz = np.load(npz_path)
-        print(' shape is {}'.format(self.npz['images'].shape))
+        self.img = np.load(npz_path)['images']
+        #print(' shape is {}'.format(self.img.shape))
         #print(f' attrbutes are {self.npz.files}')
 
     def __getitem__(self, index):
@@ -193,7 +193,7 @@ class ImageList(object):
         """
         path, target = self.imgs[index]
         image_index = int(''.join(re.findall('[0-9]', path)))
-        img = self.npz['images'][image_index]
+        img = self.img[image_index]
         img = Image.fromarray(img)
         #img = self.loader(path)
         if self.transform is not None:
