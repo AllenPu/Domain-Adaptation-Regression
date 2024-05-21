@@ -189,7 +189,7 @@ iter_target = iter(dset_loaders["val"])
 
 for param_group in optimizer.param_groups:
     param_lr.append(param_group["lr"])
-test_interval = 100
+test_interval = 500
 num_iter = 10002
 for iter_num in tqdm(range(1, num_iter + 1)):
     Model_R.train(True)
