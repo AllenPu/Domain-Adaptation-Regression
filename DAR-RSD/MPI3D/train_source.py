@@ -233,5 +233,5 @@ for iter_num in tqdm(range(1, num_iter + 1)):
     if (iter_num % test_interval) == 0:
         Model_R.eval()
         Regression_test(dset_loaders, Model_R.predict_layer)
-torch.save(Model_R, f'{store_name}'.pth)
+torch.save(Model_R, f'{store_name}.pth')
 
