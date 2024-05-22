@@ -105,13 +105,15 @@ def Regression_test(loader, model, src, tgt):
     plt.plot(x, gt_upper, label='labels')
     plt.plot(x, upper, label='upper_preds')
     plt.legend()
-    plt.draw()
+    #plt.draw()
     plt.savefig('./imgs/pic-{}_src-{}-tgt-{}.png'.format('upper', src, tgt))
+    plt.close()
     plt.plot(x, gt_bottom, label='labels')
     plt.plot(x, bottom, label='bottom_preds')
     plt.legend()
-    plt.draw()
+    #lt.draw()
     plt.savefig('./imgs/pic-{}_src-{}-tgt-{}.png'.format('bottom', src, tgt))
+    plt.close()
 
 
 class Model_Regression(nn.Module):
