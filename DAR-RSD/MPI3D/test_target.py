@@ -96,6 +96,7 @@ def Regression_test(loader, model, src, tgt):
     for j in range(3):
         MSE[j] = MSE[j] / number
         MAE[j] = MAE[j] / number
+    print(f' source is {src} target is {tgt}')
     print("\tMSE : {0},{1}\n".format(MSE[0], MSE[1]))
     print("\tMAE : {0},{1}\n".format(MAE[0], MAE[1]))
     print("\tMSEall : {0}\n".format(MSE[2]))
@@ -131,7 +132,7 @@ class Model_Regression(nn.Module):
 
 
 
-models = ['source_rl_target_t.pth', 'source_t_target_rc.pth', 'source_rc_target_rl.pt', 'source_rc_target_t.pth', 'source_rl_target_rc.pt', 'source_t_target_rl.pth']
+models = ['source_rl_target_t.pth', 'source_t_target_rc.pth', 'source_rc_target_rl.pth', 'source_rc_target_t.pth', 'source_rl_target_rc.pt', 'source_t_target_rl.pth']
 sources = ['rl', 't', 'rc', 'rc', 'rl', 't']
 targets = ['t', 'rc', 'rl', 't', 'rc', 'rl']
 
