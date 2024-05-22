@@ -187,7 +187,7 @@ for i, (m, sour, tar) in enumerate(zip(models, sources, targets)):
 
     dset_sizes = {x: len(dsets[x]) for x in ['test']}
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    Model_R = torch.load(models)
+    Model_R = torch.load(m)
     #
     Model_R.eval()
     Regression_test(dset_loaders, Model_R.predict_layer, src=sour, tgt=tar)
