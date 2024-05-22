@@ -95,24 +95,10 @@ elif args.tgt =='t':
     npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
 
 
-store_name = f'source_{args.src}_target_{args.tgt}'
-
-dsets = {"train": ImageList(open(source_path).readlines(), npz_path=npz_path_source, transform=data_transforms["train"]),
-         "val": ImageList(open(target_path).readlines(), npz_path=npz_path_target, transform=data_transforms["val"]),
-         "test": ImageList(open(target_path_t).readlines(), npz_path=npz_path_test, transform=data_transforms["test"])}
-
-dset_loaders = {x: torch.utils.data.DataLoader(dsets[x], batch_size=batch_size[x],
-                                               shuffle=True, num_workers=8)
-                for x in ['train', 'val']}
-dset_loaders["test"] = torch.utils.data.DataLoader(dsets["test"], batch_size=batch_size["test"],
-                                                   shuffle=False, num_workers=16)
-
-dset_sizes = {x: len(dsets[x]) for x in ['train', 'val','test']}
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 
 
-def Regression_test(loader, model):
+def Regression_test(loader, model, src, tgt):
     MSE = [0, 0, 0]
     MAE = [0, 0, 0]
     number = 0
@@ -151,12 +137,12 @@ def Regression_test(loader, model):
     plt.plot(x, upper, label='upper_preds')
     plt.legend()
     plt.draw()
-    plt.savefig('./pic-{}.png'.format(upper))
+    plt.savefig('./pic-{}_src-{}-tgt-{}.png'.format(upper, src, tgt))
     plt.plot(x, gt_bottom, label='labels')
     plt.plot(x, bottom, label='bottom_preds')
     plt.legend()
     plt.draw()
-    plt.savefig('./pic-{}.png'.format(bottom))
+    plt.savefig('./pic-{}_src-{}-tgt-{}.png'.format(bottom, src, tgt))
 
 
 class Model_Regression(nn.Module):
@@ -175,23 +161,36 @@ class Model_Regression(nn.Module):
 
 
 
-Model_R = Model_Regression()
-Model_R = Model_R.to(device)
 
-Model_R.train(True)
-criterion = {"regressor": nn.MSELoss()}
-optimizer_dict = [{"params": filter(lambda p: p.requires_grad, Model_R.model_fc.parameters()), "lr": 0.1},
-                  {"params": filter(lambda p: p.requires_grad, Model_R.classifier_layer.parameters()), "lr": 1}]
-optimizer = optim.SGD(optimizer_dict, lr=0.1, momentum=0.9, weight_decay=0.0005, nesterov=True)
-train_cross_loss = train_rsd_loss = train_total_loss = 0.0
-len_source = len(dset_loaders["train"]) - 1
-len_target = len(dset_loaders["val"]) - 1
-param_lr = []
-iter_source = iter(dset_loaders["train"])
-iter_target = iter(dset_loaders["val"])
 
-Model_R.eval()
-Regression_test(dset_loaders, Model_R.predict_layer)
+models = ['source_rl_target_t.pth', 'source_t_target_rc.pth', 'source_rc_target_rl.pt', 'source_rc_target_t.pth', 'source_rl_target_rc.pt', 'source_t_target_rl.pth']
+sources = ['rl', 't', 'rc', 'rc', 'rl', 't']
+targets = ['t', 'rc', 'rl', 't', 'rc', 'rl']
+
+
+
+
+for i, (m, sour, tar) in enumerate(zip(models, sources, targets)):
+    if tar =='rl':
+        target_path_t = rl_t
+        npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
+    elif tar =='rc':
+        target_path_t = rc_t
+        npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
+    elif tar =='t':
+        target_path_t = t_t
+        npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'  
+    dsets = {"test": ImageList(open(target_path_t).readlines(), npz_path=npz_path_test, transform=data_transforms["test"])}
+    dset_loaders = {}
+    dset_loaders["test"] = torch.utils.data.DataLoader(dsets["test"], batch_size=batch_size["test"],
+                                                   shuffle=False, num_workers=16)
+
+    dset_sizes = {x: len(dsets[x]) for x in ['test']}
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    Model_R = torch.load(models)
+    #
+    Model_R.eval()
+    Regression_test(dset_loaders, Model_R.predict_layer, src=sour, tgt=tar)
 
 
 
