@@ -64,38 +64,6 @@ t_t="toy_test.txt"
 
 
 
-if args.src =='rl':
-    source_path = rl
-    npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
-elif args.src =='rc':
-    source_path = rc
-    npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
-elif args.src =='t':
-    source_path = t
-    npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
-
-if args.tgt =='rl':
-    target_path = rl
-    npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
-elif args.tgt =='rc':
-    target_path = rc
-    npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
-elif args.tgt =='t':
-    target_path = t
-    npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
-
-if args.tgt =='rl':
-    target_path_t = rl_t
-    npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
-elif args.tgt =='rc':
-    target_path_t = rc_t
-    npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
-elif args.tgt =='t':
-    target_path_t = t_t
-    npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
-
-
-
 
 
 def Regression_test(loader, model, src, tgt):
@@ -137,12 +105,12 @@ def Regression_test(loader, model, src, tgt):
     plt.plot(x, upper, label='upper_preds')
     plt.legend()
     plt.draw()
-    plt.savefig('./pic-{}_src-{}-tgt-{}.png'.format(upper, src, tgt))
+    plt.savefig('./pic-{}_src-{}-tgt-{}.png'.format('upper', src, tgt))
     plt.plot(x, gt_bottom, label='labels')
     plt.plot(x, bottom, label='bottom_preds')
     plt.legend()
     plt.draw()
-    plt.savefig('./pic-{}_src-{}-tgt-{}.png'.format(bottom, src, tgt))
+    plt.savefig('./pic-{}_src-{}-tgt-{}.png'.format('bottom', src, tgt))
 
 
 class Model_Regression(nn.Module):
