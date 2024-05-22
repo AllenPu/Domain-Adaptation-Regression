@@ -132,7 +132,7 @@ class Model_Regression(nn.Module):
 
 
 
-models = ['source_rl_target_t.pth', 'source_t_target_rc.pth', 'source_rc_target_rl.pth', 'source_rc_target_t.pth', 'source_rl_target_rc.pt', 'source_t_target_rl.pth']
+models = ['source_rl_target_t.pth', 'source_t_target_rc.pth', 'source_rc_target_rl.pth', 'source_rc_target_t.pth', 'source_rl_target_rc.pth', 'source_t_target_rl.pth']
 sources = ['rl', 't', 'rc', 'rc', 'rl', 't']
 targets = ['t', 'rc', 'rl', 't', 'rc', 'rl']
 
