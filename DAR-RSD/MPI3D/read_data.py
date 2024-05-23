@@ -111,7 +111,7 @@ def make_dataset(image_list, labels):
 
 
 def pil_loader(path, img_path):
-    print(f' path {path} img path {img_path}')
+    #print(f' path {path} img path {img_path}')
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
     if img_path == '':
         p = path
@@ -197,7 +197,7 @@ class ImageList(object):
             tuple: (image, target) where target is class_index of the target class.
         """
         path, target = self.imgs[index]
-        img = self.loader(path)
+        img = self.loader(path, self.img_path)
         if self.transform is not None:
             img = self.transform(img)
         if self.target_transform is not None:
