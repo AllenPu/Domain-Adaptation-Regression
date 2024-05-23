@@ -1,4 +1,4 @@
-
+import os
 import re
 import torch
 import numpy as np
@@ -115,7 +115,7 @@ def pil_loader(path, img_path):
     if img_path == '':
         p = path
     else:
-        p = os.path.join(img-path, path)
+        p = os.path.join(img_path, path)
     with open(p, 'rb') as f:
         with Image.open(f) as img:
             return img.convert('RGB')
