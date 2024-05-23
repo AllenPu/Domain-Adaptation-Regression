@@ -110,9 +110,13 @@ def make_dataset(image_list, labels):
     return images
 
 
-def pil_loader(path):
+def pil_loader(path, img_path):
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
-    with open(path, 'rb') as f:
+    if img_path == '':
+        p = path
+    else:
+        p = os.path.join(img-path, path)
+    with open(p, 'rb') as f:
         with Image.open(f) as img:
             return img.convert('RGB')
 
@@ -168,7 +172,7 @@ class ImageList(object):
         imgs (list): List of (image path, class_index) tuples
     """
 
-    def __init__(self, image_list, labels=None, npz_path = None, transform=None, target_transform=None,
+    def __init__(self, image_list, labels=None, img_path = '', transform=None, target_transform=None,
                  loader=default_loader):
         imgs = make_dataset(image_list, labels)
         if len(imgs) == 0:
@@ -180,7 +184,7 @@ class ImageList(object):
         self.transform = transform
         self.target_transform = target_transform
         self.loader = loader
-        self.img = np.load(npz_path)['images']
+        self.img_path = img_path
         #print(' shape is {}'.format(self.img.shape))
         #print(f' attrbutes are {self.npz.files}')
 
@@ -192,16 +196,7 @@ class ImageList(object):
             tuple: (image, target) where target is class_index of the target class.
         """
         path, target = self.imgs[index]
-        image_index = int(''.join(re.findall('[0-9]', path)))
-        #print(f' key is {image_index}')
-        img = self.img[image_index]
-        #
-        if img.shape != (64,64,3):
-            img = img.transpose(1,2,0)
-        #if img.shape != (64,64,3):
-        #    print(f' index is {index} key is {image_index} shape of the  numpy  {img.shape}')
-        img = Image.fromarray(np.uint8(img))
-        #img = self.loader(path)
+        img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
         if self.target_transform is not None:

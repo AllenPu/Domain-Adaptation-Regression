@@ -65,40 +65,40 @@ t_t="toy_test.txt"
 
 if args.src =='rl':
     source_path = rl
-    npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
+    #npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
 elif args.src =='rc':
     source_path = rc
-    npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
+    #npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
 elif args.src =='t':
     source_path = t
-    npz_path_source = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
+img_path_source = '/home/rpu2/scratch/code/MPI3D_data/da'
 
 if args.tgt =='rl':
     target_path = rl
-    npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
+    #npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
 elif args.tgt =='rc':
     target_path = rc
-    npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
+    #npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
 elif args.tgt =='t':
     target_path = t
-    npz_path_target = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
+img_path_target = '/home/rpu2/scratch/code/MPI3D_data/da'
 
 if args.tgt =='rl':
     target_path_t = rl_t
-    npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
+    #npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
 elif args.tgt =='rc':
     target_path_t = rc_t
-    npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
+    #npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
 elif args.tgt =='t':
     target_path_t = t_t
-    npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'
+img_path_test = '/home/rpu2/scratch/code/MPI3D_data/da'
 
 
 store_name = f'source_{args.src}_target_{args.tgt}'
 
-dsets = {"train": ImageList(open(source_path).readlines(), npz_path=npz_path_source, transform=data_transforms["train"]),
-         "val": ImageList(open(target_path).readlines(), npz_path=npz_path_target, transform=data_transforms["val"]),
-         "test": ImageList(open(target_path_t).readlines(), npz_path=npz_path_test, transform=data_transforms["test"])}
+dsets = {"train": ImageList(open(source_path).readlines(), img_path=img_path_source, transform=data_transforms["train"]),
+         "val": ImageList(open(target_path).readlines(), img_path=img_path_target, transform=data_transforms["val"]),
+         "test": ImageList(open(target_path_t).readlines(), img_path=img_path_test, transform=data_transforms["test"])}
 
 dset_loaders = {x: torch.utils.data.DataLoader(dsets[x], batch_size=batch_size[x],
                                                shuffle=True, num_workers=8)
