@@ -111,6 +111,7 @@ def make_dataset(image_list, labels):
 
 
 def pil_loader(path, img_path):
+    print(f' path {path} img path {img_path}')
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
     if img_path == '':
         p = path
