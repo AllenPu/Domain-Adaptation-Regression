@@ -150,7 +150,7 @@ for i, (m, sour, tar) in enumerate(zip(models, sources, targets)):
         #npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_realistic.npz'
     elif tar =='t':
         target_path_t = t_t
-    img_path_test = '/home/rpu2/scratch/code/MPI3D_data/mpi3d_toy.npz'  
+    img_path_test = '/home/rpu2/scratch/code/MPI3D_data/da'  
     dsets = {"test": ImageList(open(target_path_t).readlines(), img_path=img_path_test, transform=data_transforms["test"])}
     dset_loaders = {}
     dset_loaders["test"] = torch.utils.data.DataLoader(dsets["test"], batch_size=batch_size["test"],
