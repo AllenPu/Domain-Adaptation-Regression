@@ -102,10 +102,22 @@ def Regression_test(loader, model, src, tgt):
     print("\tMSEall : {0}\n".format(MSE[2]))
     print("\tMAEall : {0}\n".format(MAE[2]))
     x = [i for i in range(len(upper))]
-    plt.plot(x, gt_upper, label='labels')
-    plt.plot(x, upper, label='upper_preds')
-    plt.legend()
     #plt.draw()
+    l1_bottom = torch.abs(bottom, gt_bottom)
+    l1_upper = torch.abs(upper, gt_upper)
+    #plt.plot(upper, l1_upper, label='l1_upper')
+    plt.hist(l1_upper)
+    plt.legend()
+    plt.savefig('./imgs/pic-{}_src-{}-tgt-{}.png'.format('upper', src, tgt))
+    plt.close()
+    plt.hist(l1_bottom)
+    #plt.plot(bottom, l1_bottom, label='l1_bottom')
+    #plt.plot(x, bottom, label='bottom_preds')
+    plt.legend()
+    #lt.draw()
+    plt.savefig('./imgs/pic-{}_src-{}-tgt-{}.png'.format('bottom', src, tgt))
+    plt.close()
+    '''
     plt.savefig('./imgs/pic-{}_src-{}-tgt-{}.png'.format('upper', src, tgt))
     plt.close()
     plt.plot(x, gt_bottom, label='labels')
@@ -114,6 +126,7 @@ def Regression_test(loader, model, src, tgt):
     #lt.draw()
     plt.savefig('./imgs/pic-{}_src-{}-tgt-{}.png'.format('bottom', src, tgt))
     plt.close()
+    '''
 
 
 class Model_Regression(nn.Module):
@@ -162,6 +175,4 @@ for i, (m, sour, tar) in enumerate(zip(models, sources, targets)):
     #
     Model_R.eval()
     Regression_test(dset_loaders, Model_R.predict_layer, src=sour, tgt=tar)
-
-
 
