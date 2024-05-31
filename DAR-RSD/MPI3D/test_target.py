@@ -103,8 +103,8 @@ def Regression_test(loader, model, src, tgt):
     print("\tMAEall : {0}\n".format(MAE[2]))
     x = [i for i in range(len(upper))]
     #plt.draw()
-    l1_bottom = bottom - gt_bottom
-    l1_upper = upper - gt_upper
+    l1_upper = list(map(lambda x: x[0]-x[1], zip(upper, gt_upper)))
+    l1_bottom = list(map(lambda x: x[0]-x[1], zip(bottom, gt_bottom)))
     #plt.plot(upper, l1_upper, label='l1_upper')
     plt.hist(l1_upper)
     plt.legend()
