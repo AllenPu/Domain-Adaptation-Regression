@@ -108,7 +108,7 @@ def Regression_test(loader, model, src, tgt):
     #plt.plot(upper, l1_upper, label='l1_upper')
     plt.hist(l1_upper, label='upper difference')
     plt.legend()
-    plt.savefig('./imgs/pic-hist-{}_src-{}-tgt-{}.png'.format('upper', src, tgt))
+    plt.savefig('./imgs/s_s/pic-hist-{}_src-{}-tgt-{}.png'.format('upper', src, tgt))
     plt.close()
     plt.hist(l1_bottom, label='bottom difference')
     #plt.plot(bottom, l1_bottom, label='l1_bottom')
