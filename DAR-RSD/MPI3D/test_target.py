@@ -154,7 +154,7 @@ targets = ['t', 'rc', 'rl', 't', 'rc', 'rl']
 
 
 
-for i, (m, sour, tar) in enumerate(zip(models, sources, targets)):
+for i, (m, sour, tar) in enumerate(zip(models, sources, sources)):
     if tar =='rl':
         target_path_t = rl_t
         #npz_path_test = '/home/rpu2/scratch/code/MPI3D_data/real.npz'
