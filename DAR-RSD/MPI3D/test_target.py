@@ -195,7 +195,7 @@ for i, (m, sour, tar) in enumerate(zip(models, sources, targets)):
         target_path_t = "noisy_test.txt"
     if tar == 's':
         target_path_t = "scream_test.txt"
-    dsets = {"test": ImageList(open(target_path_t).readlines(), img_path=path_test, transform=data_transforms["test"])}
+    dsets = {"test": ImageList(open(target_path_t).readlines(), img_path=img_path_test, transform=data_transforms["test"])}
     dset_loaders = {}
     dset_loaders["test"] = torch.utils.data.DataLoader(dsets["test"], batch_size=batch_size["test"],
                                                    shuffle=False, num_workers=16)
